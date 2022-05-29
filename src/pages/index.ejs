@@ -1,0 +1,69 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/style.css">
+<link href="https://pro.fontawesome.com/releases/v5.13.1/css/all.css" rel="stylesheet"> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="/script.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div class="online"><i style="margin-left:15px;" class="fas fa-users"> </i> <%- online_users -%></div>
+<ul id="messages"></ul>
+<form id="form" action="">
+<input id="input" autocomplete="off" /><button><i class="fas fa-paper-plane"></i></button>
+</form>
+<script>
+  let username = prompt("Kullanıcı adı:");
+  var message_send = false;
+  var user = username;
+      var socket = io();
+      var messages = document.getElementById('messages');
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+      const today = new Date();
+      let h = today.getHours();
+      let m = today.getMinutes();
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value && message_send == false) {
+          socket.emit('chat message', "<b>"+username+"</b>"+" : " +input.value);
+          input.value = '';
+          message_send = true;
+          setTimeout(()=>{
+          message_send = false; 
+          },1000);
+        } else if(input.value == "/kac-cm" || input.value == " /kac-cm"){
+        console.log("kaç cm")
+        var item = document.createElement('li');
+        item.innerHTML = "<b>Sistem Bot : "+Math.floor(Math.random() * 100)+"cm</b>";
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);  
+        } else {
+        alert("Mesaj yazmak için bekle");
+        }
+      var gonderilen = input.value;
+      console.log(gonderilen)
+      return gonderilen;
+      });
+      socket.on('chat message', function(msg) {
+        var item = document.createElement('li');
+        item.innerHTML = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+     socket.on('join message', function(join) {
+        var item = document.createElement('li');
+        item.innerHTML = "<b class='join'>"+username+" Odaya Katıldı </b>";
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+       socket.on('leave message', function(leave) {
+        var item = document.createElement('li');
+        item.innerHTML = "<b class='exit'>"+username+" Odadan Ayrıldı</b>";
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    </script>
+</body>
