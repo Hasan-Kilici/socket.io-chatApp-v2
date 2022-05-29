@@ -1,0 +1,57 @@
+   body { 
+   margin: 0; 
+   padding-bottom: 3rem; 
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+   }
+
+      #form {
+      background: rgba(0, 0, 0, 0.15); 
+      padding: 0.25rem; 
+      position: fixed; 
+      bottom: -2vh; 
+      left: 0; 
+      right: 0; 
+      display: flex;
+      flex-wrap:wrap;
+      height: 3rem; 
+      box-sizing: border-box; 
+      }
+      #input { 
+      border: none; 
+      padding: 0 1rem; 
+      flex-grow: 1; 
+      border-radius: 0.2em; 
+      margin: 0.25rem; 
+      }
+      #input:focus { outline: none; }
+      #form > button { 
+      background: #333; 
+      border: none; 
+      padding: 0 1rem; 
+      margin: 0.25rem;
+      border-radius: 0.2em;
+      outline: none; 
+      color: #fff; 
+      }
+      #messages { 
+      list-style-type: none; 
+      margin: 0; 
+      padding: 0; 
+      }
+      #messages > li { 
+      padding: 0.5rem 1rem; ;
+      margin-top:1vh;
+      margin-bottom:1vh;
+      margin-left:1vw;
+      }
+      li[title~=join]{
+      background-color:#ffffff;
+      }
+      .exit{color:red}
+      .join{color:lime}
+      .mesaj{color:black}
+.online{
+position:fixed;
+top:1vh;
+right:1vw;
+}
